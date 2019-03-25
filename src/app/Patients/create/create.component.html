@@ -1,0 +1,71 @@
+<form class="pati-form" #patientForm="ngForm" (ngSubmit)="onSubmit(patientForm)">
+  <input type="hidden" name="PatientID" #patientID="ngModel" [(ngModel)]="selectedPatient.PatientID">
+  <div class="form-row">
+     Full name :
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input class="form-control" name="FirstName" #FirstName="ngModel" [(ngModel)]="selectedPatient.FirstName"
+          placeholder="First Name" required>
+        <div class="validation-error" *ngIf="FirstName.invalid && FirstName.touched">This Field is Required.</div>
+      </div>
+      <div class="form-group col-md-6">
+        <input class="form-control" name="LastName" #LastName="ngModel" [(ngModel)]="selectedPatient.LastName" placeholder="Last Name"
+          required>
+        <div class="validation-error" *ngIf="LastName.invalid && LastName.touched">This Field is Required.</div>
+      </div>
+  </div>
+  <div class="form-group">
+    Birthday :  
+    <input type="datetime-local" class="form-control" name="Birthday" #LastName="ngModel" [(ngModel)]="selectedPatient.Birthday" placeholder="Birthday"
+    >    
+  </div> 
+  <div class="form-group">
+    Address :
+    <input class="form-control" name="Address" #Position="ngModel" [(ngModel)]="selectedPatient.Address" placeholder="Address">
+  </div>
+  <div class="form-group">
+    Country :
+    <select class= "form-control" name ="CountryID" #Position="ngModel" [(ngModel)]="selectCountry" (change)="onCountryChange(selectCountry)" >
+      <option *ngFor="let country of patientService.countryList" value = "{{country.CountryID}}">
+        {{country.Name}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    City :
+    <select class= "form-control" name ="CityID" #Position="ngModel" [(ngModel)]="selectCity" (change)="onCityChange(selectCity)" >
+      <option *ngFor="let city of patientService.cityList" value = "{{city.CityID}}">
+        {{city.CityName}}
+      </option>
+    </select>
+  </div>    
+    <div class="form-group">
+    District :
+    <select class ="form-control" name="DistrictID" #Position="ngModel"[(ngModel)]="selectedPatient.DistrictID">
+      <option *ngFor="let district of districtList" value="{{district.DistrictID}}">
+        {{district.DistrictName}}
+      </option>
+    </select>
+    <!-- <input class="form-control" name="DistrictID" #Position="ngModel" [(ngModel)]="selectedPatient.DistrictID" placeholder="District"> -->
+  </div>      
+<div class="form-group">
+  Doctor:
+  <select class="form-control" name ="DoctorID" #Position="ngModel" [(ngModel)]="selectedPatient.DoctorID">
+    <option *ngFor="let doctor of patientService.doctorList" value="{{doctor.DoctorID}}">
+        {{doctor.Name}}
+    </option>
+  </select>
+  <!-- <input class="form-control" name="DoctorID" #Position="ngModel" [(ngModel)]="selectedPatient.DoctorID" placeholder="Doctor"> -->
+</div>
+  <div class="form-row">
+      <div class="form-group col-md-8">
+        <button [disabled]="!patientForm.valid" type="submit" class="btn btn-lg btn-block btn-info">
+          <i class="fa fa-floppy-o"></i> Submit</button>
+      </div> 
+      <div class="form-group col-md-4">
+        <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="resetForm(patientForm)">
+          <i class="fa fa-repeat"></i> Reset</button>
+      </div>    
+  </div>
+</form>
